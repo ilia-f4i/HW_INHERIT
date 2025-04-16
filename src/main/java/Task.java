@@ -1,9 +1,13 @@
+// Task.java
 import java.util.Objects;
 
-public class Task {
-    protected int id;
+public abstract class Task {
+    protected final int id;
 
     public Task(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID must be positive");
+        }
         this.id = id;
     }
 
@@ -11,9 +15,7 @@ public class Task {
         return id;
     }
 
-    public boolean matches(String query) {
-        return false;
-    }
+    public abstract boolean matches(String query);
 
     @Override
     public boolean equals(Object o) {
@@ -26,5 +28,12 @@ public class Task {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                '}';
     }
 }

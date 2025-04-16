@@ -1,12 +1,12 @@
 public class Meeting extends Task {
-    private String topic;
-    private String project;
-    private String start;
+    protected String topic;
+    protected String project;
+    protected String start;
 
     public Meeting(int id, String topic, String project, String start) {
         super(id);
-        this.topic = topic;
-        this.project = project;
+        this.topic = topic != null ? topic : "";
+        this.project = project != null ? project : "";
         this.start = start;
     }
 
@@ -24,6 +24,10 @@ public class Meeting extends Task {
 
     @Override
     public boolean matches(String query) {
-        return topic.contains(query) || project.contains(query);
+        if (query == null || query.isEmpty()) {
+            return false;
+        }
+        String lowerQuery = query.toLowerCase();
+        return topic.toLowerCase().contains(lowerQuery) || project.toLowerCase().contains(lowerQuery);
     }
 }

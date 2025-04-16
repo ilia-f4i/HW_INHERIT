@@ -17,9 +17,13 @@ public class Todos {
     }
 
     public Task[] search(String query) {
+        if (query == null || query.isEmpty()) {
+            return new Task[0];
+        }
+        String lowerQuery = query.toLowerCase();
         Task[] result = new Task[0];
         for (Task task : tasks) {
-            if (task.matches(query)) {
+            if (task.matches(lowerQuery)) {
                 result = addToArray(result, task);
             }
         }
